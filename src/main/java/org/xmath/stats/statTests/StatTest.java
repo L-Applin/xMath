@@ -1,6 +1,7 @@
 package org.xmath.stats.statTests;
 
-import org.xmath.stats.Interval;
+import org.xmath.stats.intervals.ConfidenceInterval;
+import org.xmath.stats.Quantiles;
 import org.xmath.stats.Sample;
 import org.xmath.stats.distribution.Distribution;
 
@@ -24,7 +25,9 @@ public interface StatTest {
      * The critical value calculated of the test
      * @return
      */
-    double pValue();
+    default double pValue(){
+        return 1 - test().d(testStatistic());
+    }
 
 
     /**
@@ -32,7 +35,7 @@ public interface StatTest {
      * by the alternative hypothesis
      * @return
      */
-    Interval confInterval();
+    ConfidenceInterval confInterval();
 
     /**
      * The estimate value used for the test.
@@ -66,7 +69,15 @@ public interface StatTest {
      * If the test has rejected the null hypothesis.
      * @return
      */
-    boolean reject();
+    default boolean reject(){
+        return testStatistic() > test().quantile(testLevel());
+    }
+
+    /**
+     *
+     * @return
+     */
+    Quantiles testLevel();
 
 
     /**

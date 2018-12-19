@@ -1,6 +1,6 @@
 package org.xmath.stats.statTests;
 
-import org.xmath.stats.Interval;
+import org.xmath.stats.intervals.ConfidenceInterval;
 import org.xmath.stats.Sample;
 import org.xmath.stats.distribution.Distribution;
 
@@ -22,7 +22,7 @@ public class NormalityDistributionStatTest implements StatTest {
     }
 
     @Override
-    public Interval confInterval() {
+    public ConfidenceInterval confInterval() {
         return null;
     }
 

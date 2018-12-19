@@ -1,5 +1,6 @@
 package org.xmath.linearAlgebra;
 
+import org.xmath.num.DoubleNumber;
 import org.xmath.num.IntegerNumber;
 
 public class Matrices {
@@ -18,6 +19,18 @@ public class Matrices {
         }
         return new IntMatrix(realContent);
     }
+
+    public static DoubleMatrix doubleMatrix(double[][] content){
+        DoubleNumber[][] realContent = new DoubleNumber[content.length][content[0].length];
+        for (int i = 0; i < content.length; i++) {
+            double[] row = content[i];
+            for (int j = 0; j < row.length; j++) {
+                realContent[i][j] = new DoubleNumber(content[i][j]);
+            }
+        }
+        return new DoubleMatrix(realContent);
+    }
+
 
     public static IMatrix<IntegerNumber> intMatrixfromVectors(IntVector... vectors){
         //todo

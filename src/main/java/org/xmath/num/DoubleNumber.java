@@ -14,6 +14,10 @@ public class DoubleNumber implements Operations {
     public DoubleNumber add(Operations other) {
         return new DoubleNumber(value + ((DoubleNumber) other).value);
     }
+    public DoubleNumber add(double other) {
+        return new DoubleNumber(value + other);
+    }
+
 
     @Override
     @SuppressWarnings({"unchecked"})
@@ -21,6 +25,11 @@ public class DoubleNumber implements Operations {
         if (!(other instanceof DoubleNumber)) { throw new IllegalArgumentException("Can only multiply Doubles"); }
         return new DoubleNumber(value * ((DoubleNumber) other).value);
     }
+
+    public DoubleNumber mult(double other) {
+        return new DoubleNumber(value * other);
+    }
+
 
     @Override
     @SuppressWarnings({"unchecked"})

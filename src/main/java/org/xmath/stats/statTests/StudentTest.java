@@ -1,11 +1,11 @@
 package org.xmath.stats.statTests;
 
-import org.xmath.stats.Interval;
-import org.xmath.stats.Intervals;
-import org.xmath.stats.Quantiles;
-import org.xmath.stats.Sample;
+import org.xmath.stats.*;
 import org.xmath.stats.distribution.Distribution;
 import org.xmath.stats.distribution.Distributions;
+import org.xmath.stats.intervals.ConfidenceInterval;
+import org.xmath.stats.intervals.Intervals;
+import org.xmath.stats.intervals.MeanInterval;
 
 /**
  * H0 : mu = x
@@ -21,7 +21,7 @@ public class StudentTest implements StatTest {
 
     private Double statValue;
     private Distribution testDistribution;
-    private Interval confidenceInterval;
+    private MeanInterval confidenceMeanInterval;
     private double sampleMean;
 
 
@@ -39,7 +39,6 @@ public class StudentTest implements StatTest {
     }
 
 
-
     public StudentTest() {
         this(0, Quantiles.q95);
     }
@@ -49,7 +48,7 @@ public class StudentTest implements StatTest {
         this.sample = sample;
         testDistribution = Distributions.student(sample.size() - 1);
         statValue = (Math.sqrt(sample.size()) / sample.std()) * Math.abs(sample.mean() - meanTested);
-        confidenceInterval = Intervals.meanInterval(sample);
+        confidenceMeanInterval = Intervals.meanInterval(sample);
         sampleMean = sample.mean();
     }
 
@@ -65,12 +64,8 @@ public class StudentTest implements StatTest {
         return testDistribution;
     }
 
-    public double pValue() {
-        return 1 - testDistribution.d(statValue);
-    }
-
-    public Interval confInterval() {
-        return confidenceInterval;
+    public ConfidenceInterval confInterval() {
+        return confidenceMeanInterval;
     }
 
     public double estimate() {
@@ -87,6 +82,11 @@ public class StudentTest implements StatTest {
 
     public Sample sample() {
         return sample;
+    }
+
+    @Override
+    public Quantiles testLevel() {
+        return testLevel;
     }
 
     @Override

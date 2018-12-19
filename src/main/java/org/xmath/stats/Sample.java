@@ -1,6 +1,8 @@
 package org.xmath.stats;
 
 import org.xmath.linearAlgebra.DoubleVector;
+import org.xmath.stats.intervals.Intervals;
+import org.xmath.stats.intervals.MeanInterval;
 
 import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;
@@ -21,6 +23,10 @@ public class Sample extends DoubleVector implements Observation {
     public Sample(double... values) {
         super(values);
         stat = Arrays.stream(values).summaryStatistics();
+    }
+
+    public double value(int i){
+        return get(i).value();
     }
 
     @Override
@@ -62,7 +68,7 @@ public class Sample extends DoubleVector implements Observation {
     }
 
 
-    private double diffSquare(){
+    public double diffSquare(){
         double total = 0;
         double mean = mean();
         for (int i = 0; i < values.length; i++) {
@@ -72,7 +78,7 @@ public class Sample extends DoubleVector implements Observation {
     }
 
 
-    public Interval meanInterval(){
+    public MeanInterval meanInterval(){
         return Intervals.meanInterval(this);
     }
 
@@ -82,6 +88,16 @@ public class Sample extends DoubleVector implements Observation {
 
     public double min(){
         return stat.getMin();
+    }
+
+    /**
+     * Returns a sample that only element of this sample from 0 to i excluded
+     * @param i
+     * @return
+     */
+    public Sample subSample(int i){
+        // todo :
+        return null;
     }
 
     @Override
