@@ -15,8 +15,13 @@ public class DistributionTest {
 
     @Test
     public void student(){
-        StudentDistribution t = new StudentDistribution(100);
+        StudentDistribution t = new StudentDistribution(50);
         System.out.println(t.p(0));
+        for (double i = -4; i < 4.01; i+=0.1) {
+            System.out.printf("student cdf at %.2f = %.6f\n", i, t.d(i));
+        }
+
+
     }
 
 

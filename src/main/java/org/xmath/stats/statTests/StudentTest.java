@@ -58,7 +58,7 @@ public class StudentTest implements StatTest {
     }
 
     public boolean reject(){
-        return testStatistic() > test().quantile(testLevel);
+        return statValue > testDistribution.quantile(testLevel);
     }
 
     public Distribution test() {
@@ -66,7 +66,7 @@ public class StudentTest implements StatTest {
     }
 
     public double pValue() {
-        return testLevel.getAlpha();
+        return 1 - testDistribution.d(statValue);
     }
 
     public Interval confInterval() {
@@ -91,14 +91,16 @@ public class StudentTest implements StatTest {
 
     @Override
     public String toString() {
-        return "StudentTest{\n" +
-                "meanTested=" + meanTested +
-                ", testLevel=" + testLevel +
-                ", statValue=" + statValue +
-                ", testDistribution=" + testDistribution +
-                ", confidenceInterval=" + confidenceInterval +
-                ", sampleMean=" + sampleMean +
-                "\n" + sample +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\n");
+        sb.append(nullHypothesis()).append("\n");
+        sb.append(altHypothesis()).append("\n");
+        sb.append(String.format("confidence interval : %s\n", confInterval()));
+        sb.append(String.format("test statistic value : %.4f\n", testStatistic()));
+        sb.append(String.format("p-value : %s\n", pValue()));
+        sb.append(String.format("mean estimate : %.4f\n", estimate()));
+        sb.append(String.format("reject null hypothesis : %s\n",reject()));
+        sb.append(sample());
+        return sb.toString();
     }
 }

@@ -26,15 +26,13 @@ public final class NormalStandardDistribution implements Distribution {
          * will result in poor precision, and even response that are innaccurate. Use with caution.
          * The error function is approximated and the precision of the approximation has its limits.
          */
-        return 0.5 *(1 + erf(x / Math.sqrt(2)));
+        return 0.5 * (1 + erf(x / Math.sqrt(2)));
 
     }
 
     @Override
     public double quantile(double alpha) {
-
-        if (alpha > 1 || alpha < 0)
-        { throw new RuntimeException("alpha values must be between 0 and 1"); }
+        if (alpha>1||alpha<0) throw new RuntimeException("Probability must bebetween 0 and 1");
 
         // todo find something better : quantile functions
         double step = 0.0001;

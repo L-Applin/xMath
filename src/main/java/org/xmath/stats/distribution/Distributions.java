@@ -1,5 +1,8 @@
 package org.xmath.stats.distribution;
 
+import org.apache.commons.math3.distribution.HypergeometricDistribution;
+import org.apache.commons.math3.special.Erf;
+
 import java.util.function.UnaryOperator;
 
 import static org.xmath.stats.Tables.erfInverseCoeff;
@@ -90,11 +93,12 @@ public final class Distributions {
 
 
     public static double erf(double z){
-        // extremem values => use better approximation
-        if (z <= 2 || z >= 2) {
-            return erf(z, precisionRequired(z));
-        }
-        return errorFunctionApprox.apply(z);
+        return Erf.erf(z);
+        // // extremem values => use better approximation
+        // if (z <= 2 || z >= 2) {
+        //     return erf(z, precisionRequired(z));
+        // }
+        // return errorFunctionApprox.apply(z);
     }
 
     private static double erf(double z, int precision){
@@ -137,13 +141,15 @@ public final class Distributions {
      * @return the result
      */
     public static double inverseErf(double x){
-        //todo : make more precise in extreme values near -1 and 1
-        if (x > 1 || x < -1) return Double.NaN;
-        double sum =
-                0.5 * x + (1/24d) * Math.PI * Math.pow(x, 3)
-                        + (7/960d) * Math.pow(Math.PI, 2) * Math.pow(x, 5)
-                        + (127/80640d) * Math.pow(Math.PI, 3) * Math.pow(x, 7);
-        return Math.sqrt(Math.PI) * sum;
+        //todo : cheat, use own function
+        return Erf.erfInv(x);
+
+        // if (x > 1 || x < -1) return Double.NaN;
+        // double sum =
+        //         0.5 * x + (1/24d) * Math.PI * Math.pow(x, 3)
+        //                 + (7/960d) * Math.pow(Math.PI, 2) * Math.pow(x, 5)
+        //                 + (127/80640d) * Math.pow(Math.PI, 3) * Math.pow(x, 7);
+        // return Math.sqrt(Math.PI) * sum;
     }
 
 
@@ -157,5 +163,6 @@ public final class Distributions {
         }
         return sum;
     }
+
 
 }

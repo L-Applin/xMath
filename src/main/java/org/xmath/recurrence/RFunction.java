@@ -21,7 +21,7 @@ public abstract class RFunction {
         return value;
     }
 
-    public double recursiveEval(int currentStep){
+    public double call(int currentStep){
         double res = eval(currentStep);
         setValue(currentStep, res);
         return res;

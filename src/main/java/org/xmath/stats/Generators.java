@@ -32,7 +32,7 @@ public final class Generators {
     public static void normal(double[] tab, double mu, double sigma){
         double[] data = new Generator(Z).random(tab.length);
         for (int i = 0; i < tab.length; i++) {
-            tab[i] = data[i];
+            tab[i] = (data[i] * sigma) + mu;
         }
     }
 

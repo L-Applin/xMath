@@ -1,5 +1,6 @@
 package org.xmath.stats.distribution;
 
+import org.apache.commons.math3.special.Beta;
 import org.xmath.stats.Quantiles;
 import org.xmath.stats.Tables;
 import static org.xmath.stats.distribution.Distributions.*;
@@ -30,20 +31,35 @@ public class StudentDistribution implements Distribution {
     public double p(double x) {
         double num = gamma((degreeOfFreedom + 1)/2d);
         double denum = Math.sqrt(degreeOfFreedom * Math.PI) * gamma(degreeOfFreedom / 2d);
-        double base = 1 + ((Math.pow(x, 2) / (double) degreeOfFreedom));
+        double base = 1 + ((x*x / (double) degreeOfFreedom));
         double exponent = - (degreeOfFreedom + 1)/2d;
         return (num / denum) * Math.pow(base, exponent);
     }
 
     @Override
+    /**
+     * Copied from org.apache.commons.math3.distribution.TDistribution
+     */
     public double d(double x) {
-        // slice approach ?
-        return 0;
+        double ret;
+        if (x == 0.0D) {
+            ret = 0.5D;
+        } else {
+            double t = Beta.regularizedBeta(degreeOfFreedom / (degreeOfFreedom + x * x), 0.5D * degreeOfFreedom, 0.5D);
+            if (x < 0.0D) {
+                ret = 0.5D * t;
+            } else {
+                ret = 1.0D - 0.5D * t;
+            }
+        }
+
+        return ret;
+
     }
 
     @Override
     public double quantile(double alpha) {
-        // todo
+        if (alpha>1||alpha<0) throw new RuntimeException("Probability must bebetween 0 and 1");
         return 0;
     }
 

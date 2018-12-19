@@ -126,9 +126,9 @@ public class DoubleVector implements IVector<DoubleNumber> {
         return new ArrayList<>(Arrays.asList(values)).containsAll(c);
     }
 
-    public boolean add       (DoubleNumber t)                       { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
+    public boolean add       (DoubleNumber t)                        { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
     public boolean remove    (Object o)                              { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
-    public boolean addAll    (Collection<? extends DoubleNumber> c) { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
+    public boolean addAll    (Collection<? extends DoubleNumber> c)  { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
     public boolean removeAll (Collection<?> c)                       { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
     public boolean retainAll (Collection<?> c)                       { throw new UnsupportedOperationException("Cannot change immutable Vector"); }
     public void    clear     ()                                      { throw new UnsupportedOperationException("Cannot change immutable Vector"); }

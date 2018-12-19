@@ -1,7 +1,5 @@
 package org;
 
-import org.xmath.linearAlgebra.IVector;
-import org.xmath.linearAlgebra.IntVector;
 import org.xmath.linearAlgebra.Vectors;
 import org.xmath.polynomial.Polynomial;
 import org.xmath.recurrence.RFunction;
@@ -15,7 +13,7 @@ public class Main {
         Recurrence dev2_4 = Recurrence.create(new RFunction() {
                 public double eval(int n) {
                     if (n == 0) return 0;
-                    return  1 / (4 - recursiveEval(n - 1));
+                    return  1 / (4 - call(n - 1));
                 }
             });
 

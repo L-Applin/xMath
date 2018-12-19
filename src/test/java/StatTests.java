@@ -14,17 +14,15 @@ public class StatTests {
     public void studentTest(){
         StatTest t1 = new StudentTest();
         t1.fit(sample1);
-        logTest(t1);
+        System.out.println(t1);
 
         StatTest t2 = new StudentTest();
         t2.fit(sample2);
-        logTest(t2);
+        System.out.println(t2);
 
         StatTest t3 = new StudentTest(5);
         t3.fit(sample3);
         System.out.println(t3);
-
-
     }
 
     private static void logTest(StatTest t){
@@ -32,9 +30,9 @@ public class StatTests {
         System.out.println(t.nullHypothesis());
         System.out.println(t.altHypothesis());
         System.out.println(String.format("confidence interval : %s", t.confInterval()));
-        System.out.println(String.format("test critical value : %.4f ", t.testStatistic()));
-        System.out.println(String.format("p-value required : %.3f",1 - t.pValue()));
-        System.out.println(String.format("mean estimate : %.4f",t.estimate()));
+        System.out.println(String.format("test statistic value : %.4f ", t.testStatistic()));
+        System.out.println(String.format("p-value : %s",1 - t.pValue()));
+        System.out.println(String.format("mean estimate : %.4f", t.estimate()));
         System.out.println(String.format("reject null hypothesis : %s",t.reject()));
         System.out.println(t.sample());
 

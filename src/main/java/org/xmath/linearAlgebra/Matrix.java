@@ -26,6 +26,9 @@ public class Matrix <T extends Operations> implements IMatrix <T>, Cloneable {
 
 
 
+
+
+
     /* ************************* *
      * COLLECTION IMPLEMENTATION *
      *************************** */
@@ -185,6 +188,10 @@ public class Matrix <T extends Operations> implements IMatrix <T>, Cloneable {
         //todo
         return null;
     }
+
+
+
+
 
 
     /* **************************

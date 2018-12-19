@@ -38,9 +38,8 @@ public class Complex implements Operations {
     @SuppressWarnings({"unchecked"})
     public Complex mult(Operations other) {
         Complex otherComplex = (Complex) other;
-        double newReal, newComplex;
-        newReal = (real * otherComplex.real) - (c * otherComplex.c);
-        newComplex = (real * otherComplex.c) + (c * otherComplex.real);
+        double newReal = (real * otherComplex.real) - (c * otherComplex.c);
+        double newComplex = (real * otherComplex.c) + (c * otherComplex.real);
         return new Complex(newReal, newComplex);
     }
 

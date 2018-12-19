@@ -26,6 +26,7 @@ public class NormalDistribution implements Distribution {
 
     @Override
     public double quantile(double alpha) {
+        if (alpha>1||alpha<0) throw new RuntimeException("Probability must bebetween 0 and 1");
         return mu + sigma * SQRTPI * inverseErf(2 * alpha - 1);
     }
 

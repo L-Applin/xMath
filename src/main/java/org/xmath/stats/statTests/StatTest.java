@@ -21,7 +21,7 @@ public interface StatTest {
 
 
     /**
-     * The pValue() to test against
+     * The critical value calculated of the test
      * @return
      */
     double pValue();

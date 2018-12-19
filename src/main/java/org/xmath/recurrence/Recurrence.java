@@ -6,13 +6,13 @@ public class Recurrence {
 
 
     /**
-     * The final value calculated by the recursiveEval
+     * The final value calculated by the call
      */
     private double evaluatedValue;
     public double getEvaluatedValue() { return evaluatedValue; }
 
     /**
-     * The actual recursiveEval fontion that will be evaluated
+     * The actual call fontion that will be evaluated
      */
     private final RFunction recurenceFunction;
 
@@ -21,7 +21,7 @@ public class Recurrence {
     }
 
     /**
-     * All values of the evaluated recursiveEval fontion for all the steps.
+     * All values of the evaluated call fontion for all the steps.
      */
     public List<Double> getValues() {
         return recurenceFunction.getValues();
@@ -30,7 +30,7 @@ public class Recurrence {
 
     public Recurrence eval(int steps){
         if (steps < 0) throw new IllegalArgumentException("steps must be greater than 0");
-        evaluatedValue = recurenceFunction.recursiveEval(steps);
+        evaluatedValue = recurenceFunction.call(steps);
         return this;
     }
 
