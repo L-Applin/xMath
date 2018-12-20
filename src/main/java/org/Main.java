@@ -1,7 +1,7 @@
 package org;
 
 import org.xmath.linearAlgebra.Vectors;
-import org.xmath.polynomial.Polynomial;
+import org.xmath.polynomial.RegularPolynomial;
 import org.xmath.recurrence.RFunction;
 import org.xmath.recurrence.Recurrence;
 
@@ -20,12 +20,12 @@ public class Main {
         System.out.println(dev2_4.eval(10));
 
 
-        Polynomial p1 = new Polynomial(new int[]{1, -3, 4, 7, 1}, 'y');
-        Polynomial p2 = new Polynomial(new int[]{1, -2}, 'z');
+        RegularPolynomial p1 = new RegularPolynomial(new int[]{1, -3, 4, 7, 1}, 'y');
+        RegularPolynomial p2 = new RegularPolynomial(new int[]{1, -2}, 'z');
 
         System.out.println(p1.multiply(p2).setVariableName('a'));
 
-        System.out.println(Polynomial.fromRoots(new int[]{-2, 3}));
+        System.out.println(RegularPolynomial.fromRoots(new int[]{-2, 3}));
 
         var intVect = Vectors.intVector(10, 20, 30);
         var intVect2 = Vectors.intVector(1, 2, 3);

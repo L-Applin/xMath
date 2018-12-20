@@ -1,11 +1,8 @@
 package org.xmath.stats.distribution;
 
-import org.apache.commons.math3.distribution.HypergeometricDistribution;
 import org.apache.commons.math3.special.Erf;
 
 import java.util.function.UnaryOperator;
-
-import static org.xmath.stats.Tables.erfInverseCoeff;
 
 
 /**
@@ -143,26 +140,8 @@ public final class Distributions {
     public static double inverseErf(double x){
         //todo : cheat, use own function
         return Erf.erfInv(x);
-
-        // if (x > 1 || x < -1) return Double.NaN;
-        // double sum =
-        //         0.5 * x + (1/24d) * Math.PI * Math.pow(x, 3)
-        //                 + (7/960d) * Math.pow(Math.PI, 2) * Math.pow(x, 5)
-        //                 + (127/80640d) * Math.pow(Math.PI, 3) * Math.pow(x, 7);
-        // return Math.sqrt(Math.PI) * sum;
     }
 
-
-    public static double preciseInverseErf(double x){
-        double alpha = x * (SQRTPI / 2);
-        double sum = 0;
-        for (int i = 0; i < erfInverseCoeff.length; i++) {
-            double coef = erfInverseCoeff[i];
-            int pow = 2 * (i+1) - 1;
-            sum += coef*Math.pow(alpha, pow);
-        }
-        return sum;
-    }
 
 
 }

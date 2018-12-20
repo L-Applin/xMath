@@ -1,11 +1,11 @@
 package org.xmath.stats.statTests;
 
 import org.xmath.stats.Quantiles;
-import org.xmath.stats.intervals.ConfidenceInterval;
 import org.xmath.stats.Sample;
 import org.xmath.stats.distribution.Distribution;
+import org.xmath.stats.intervals.ConfidenceInterval;
 
-public class NormalityDistributionStatTest implements StatTest {
+public class FisherTest implements StatTest {
 
     @Override
     public double testStatistic() {
@@ -15,11 +15,6 @@ public class NormalityDistributionStatTest implements StatTest {
     @Override
     public Distribution test() {
         return null;
-    }
-
-    @Override
-    public double pValue() {
-        return 0;
     }
 
     @Override
@@ -48,17 +43,12 @@ public class NormalityDistributionStatTest implements StatTest {
     }
 
     @Override
-    public boolean reject() {
-        return false;
+    public Quantiles testLevel() {
+        return null;
     }
 
     @Override
     public void fit(Sample sample) {
 
-    }
-
-    @Override
-    public Quantiles testLevel() {
-        return null;
     }
 }

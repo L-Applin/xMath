@@ -1,33 +1,22 @@
 package org.xmath.stats.statTests;
 
 import org.xmath.stats.*;
-import org.xmath.stats.distribution.Distribution;
 import org.xmath.stats.distribution.Distributions;
-import org.xmath.stats.intervals.ConfidenceInterval;
 import org.xmath.stats.intervals.Intervals;
-import org.xmath.stats.intervals.MeanInterval;
 
 /**
  * H0 : mu = x
  * H1 : mu != x
  *
  */
-public class StudentTest implements StatTest {
-
-    private final double meanTested;
-    private final Quantiles testLevel;
+public class StudentTest extends BasicAbstractTest {
 
     private Sample sample;
-
-    private Double statValue;
-    private Distribution testDistribution;
-    private MeanInterval confidenceMeanInterval;
     private double sampleMean;
 
 
     public StudentTest(double meanTested, Quantiles testLevel) {
-        this.meanTested = meanTested;
-        this.testLevel = testLevel;
+        super(meanTested, testLevel);
     }
 
     public StudentTest(double meanTested) {
@@ -38,7 +27,6 @@ public class StudentTest implements StatTest {
         this(0, testLevel);
     }
 
-
     public StudentTest() {
         this(0, Quantiles.q95);
     }
@@ -47,25 +35,9 @@ public class StudentTest implements StatTest {
     public void fit(Sample sample) {
         this.sample = sample;
         testDistribution = Distributions.student(sample.size() - 1);
-        statValue = (Math.sqrt(sample.size()) / sample.std()) * Math.abs(sample.mean() - meanTested);
-        confidenceMeanInterval = Intervals.meanInterval(sample);
+        statValue = (Math.sqrt(sample.size()) / sample.std()) * Math.abs(sample.mean() - valueTested);
+        interval = Intervals.meanInterval(sample);
         sampleMean = sample.mean();
-    }
-
-    public double testStatistic(){
-        return statValue;
-    }
-
-    public boolean reject(){
-        return statValue > testDistribution.quantile(testLevel);
-    }
-
-    public Distribution test() {
-        return testDistribution;
-    }
-
-    public ConfidenceInterval confInterval() {
-        return confidenceMeanInterval;
     }
 
     public double estimate() {
@@ -73,20 +45,15 @@ public class StudentTest implements StatTest {
     }
 
     public String nullHypothesis() {
-        return String.format("null hypothesis (H0): mu = %s", meanTested);
+        return String.format("null hypothesis (H0): mu = %s", valueTested);
     }
 
     public String altHypothesis() {
-        return String.format("null hypothesis (H1): mu != %s", meanTested);
+        return String.format("null hypothesis (H1): mu != %s", valueTested);
     }
 
     public Sample sample() {
         return sample;
-    }
-
-    @Override
-    public Quantiles testLevel() {
-        return testLevel;
     }
 
     @Override

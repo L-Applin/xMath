@@ -9,7 +9,6 @@ import static org.xmath.stats.distribution.Distributions.*;
 public class StudentDistribution implements Distribution {
 
     private int degreeOfFreedom;
-    public final double q90, q95, q975, q99, q995, q999;
 
     public StudentDistribution(int degreeOfFreedom) {
 
@@ -17,13 +16,6 @@ public class StudentDistribution implements Distribution {
         { throw new IllegalArgumentException("Student distribution must have at least one degree of freedom"); }
 
         this.degreeOfFreedom = degreeOfFreedom;
-
-        q90  = Tables.studentLookup(degreeOfFreedom, 0);
-        q95  = Tables.studentLookup(degreeOfFreedom, 1);
-        q975 = Tables.studentLookup(degreeOfFreedom, 2);
-        q99  = Tables.studentLookup(degreeOfFreedom, 3);
-        q995 = Tables.studentLookup(degreeOfFreedom, 4);
-        q999 = Tables.studentLookup(degreeOfFreedom, 5);
 
     }
 
