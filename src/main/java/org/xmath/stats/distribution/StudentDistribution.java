@@ -70,8 +70,7 @@ public class StudentDistribution implements Distribution {
 
     @Override
     public double sample() {
-        // todo
-        return Double.NaN;
+        throw new UnsupportedOperationException("Cannot sample from Student T-Distribution");
     }
 
     @Override

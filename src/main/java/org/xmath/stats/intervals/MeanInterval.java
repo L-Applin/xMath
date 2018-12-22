@@ -5,9 +5,8 @@ import org.xmath.stats.Sample;
 import org.xmath.stats.distribution.Distribution;
 import org.xmath.stats.distribution.Distributions;
 
-public class MeanInterval implements ConfidenceInterval {
+public class MeanInterval extends AbstractConfidenceInterval{
 
-    private double low, high, error, center;
     private Sample sample;
 
     public MeanInterval(Sample sample) {
@@ -40,7 +39,7 @@ public class MeanInterval implements ConfidenceInterval {
         return this;
     }
 
-    public MeanInterval fit(Quantiles level, double sigma) {
+    private MeanInterval fit(Quantiles level, double sigma) {
         center = sample.mean();
         error = Distributions.Z.quantile(level) * sigma * (1 / Math.sqrt(sample.size()));
         low = center - error;
@@ -49,34 +48,5 @@ public class MeanInterval implements ConfidenceInterval {
     }
 
 
-    @Override
-    public double error() {
-        return error;
-    }
-
-    @Override
-    public double centralValue() {
-        return center;
-    }
-
-    @Override
-    public double low() {
-        return low;
-    }
-
-    @Override
-    public double high() {
-        return high;
-    }
-
-    @Override
-    public double[] interval() {
-        return new double[]{low, high};
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[%.4f, %.4f]", low, high);
-    }
-
 }
+

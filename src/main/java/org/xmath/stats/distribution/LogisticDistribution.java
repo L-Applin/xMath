@@ -24,7 +24,7 @@ public class LogisticDistribution implements Distribution {
 
     @Override
     public double quantile(double alpha) {
-        if (alpha>1||alpha<0) throw new RuntimeException("Probability must bebetween 0 and 1");
+        if (alpha>1||alpha<0) throw new IllegalArgumentException("Probability must bebetween 0 and 1");
         return mu + s * Math.log(alpha / (1 - alpha));
     }
 

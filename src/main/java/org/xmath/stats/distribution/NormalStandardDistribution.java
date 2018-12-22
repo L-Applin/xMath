@@ -10,7 +10,7 @@ import static org.xmath.stats.distribution.Distributions.*;
 public final class NormalStandardDistribution implements Distribution {
 
     private final UnaryOperator<Double> density = x -> Math.exp(-Math.pow(x, 2)/2) / Math.sqrt(2*Math.PI);
-    private Double nextGenerated;
+    private Double cachedNextGeneratedValue;
 
     @Override
     public double p(double x) {
@@ -49,20 +49,20 @@ public final class NormalStandardDistribution implements Distribution {
      */
     public double sample() {
 
-        if (nextGenerated == null) {
+        if (cachedNextGeneratedValue == null) {
 
             double first = Math.random();
             double second = Math.random();
             double a = Math.sqrt(-2 * Math.log(first));
             double b = 2 * Math.PI * second;
-            nextGenerated = a*Math.cos(b);
+            cachedNextGeneratedValue = a*Math.cos(b);
             return a*Math.sin(b);
         }
 
         else {
 
-            double res = nextGenerated;
-            nextGenerated = null;
+            double res = cachedNextGeneratedValue;
+            cachedNextGeneratedValue = null;
             return res;
         }
 

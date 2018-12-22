@@ -2,6 +2,9 @@ package org.xmath.stats.regression;
 
 import org.xmath.linearAlgebra.DoubleMatrix;
 import org.xmath.linearAlgebra.Matrices;
+import org.xmath.stats.Data;
+import org.xmath.stats.distribution.FisherDistribution;
+import org.xmath.stats.intervals.AbstractConfidenceInterval;
 import org.xmath.stats.intervals.ConfidenceInterval;
 import org.xmath.stats.Quantiles;
 import org.xmath.stats.Sample;
@@ -24,9 +27,11 @@ public class SimpleLinearRegression implements Regression{
     private Beta2Test beta2Test;
     private ConfidenceInterval beta1Interval, beta2Interval;
 
-    private double sxx, sxy, syy, sumXSquared, xMean, yMean, scr, sce, sci, sigmaSquared;
+    private double sxx, sxy, syy, sumXSquared, xMean, yMean, scr, sce, sst, sigmaSquared, rSquared;
     private DoubleMatrix H;
     private double[] coefficient;
+
+    private FisherDistribution fDist;
 
     public SimpleLinearRegression(Sample data) {
         this.data = data;
@@ -35,15 +40,15 @@ public class SimpleLinearRegression implements Regression{
     /**
      * Fit the linear regression to the Sample provided. Lanches every calculation required to get
      * the informations of the simple linear regression (2d).
-     * @param y
-     * @return
+     * @param y observed data
+     * @return this LinearRegression with all calculation done
      */
     public Regression fit(Sample y){
         this.y = y;
-        dataSize = Math.min(data.size(), y.size());
 
         // todo : fit unidentical dataSet ?
         if (data.size() != y.size()) {
+            // dataSize = Math.min(data.size(), y.size());
             // data = data.subSample(dataSize);
             // this.y = y.subSample(dataSize);
             throw new RuntimeException("DataSize must be identical");
@@ -67,7 +72,10 @@ public class SimpleLinearRegression implements Regression{
 
         yhat = yHatCalc();
         scr = SCRCalc();
+        sce = calcSCE();
+        sst = scr + sce;
         sigmaSquared = scr/(dataSize - 2);
+        rSquared = 1 - (scr / sst);
 
         beta1Test = this.new Beta1Test(coefficient[0]);
         beta2Test = this.new Beta2Test(coefficient[1]);
@@ -127,8 +135,12 @@ public class SimpleLinearRegression implements Regression{
     }
 
     private double calcSCE(){
-        //todo
-        return Double.NaN;
+        double total = 0;
+        for (int i = 0; i < data.size(); i++) {
+            double diff = y.value(i) - yMean;
+            total += diff*diff;
+        }
+        return total;
     }
 
 
@@ -157,6 +169,14 @@ public class SimpleLinearRegression implements Regression{
         return List.copyOf(tests);
     }
 
+    /**
+     * For simple regression, the fisher statistic is identicall to testing of beat2 = 0
+     * @return
+     */
+    public StatTest fisherTest(){
+        return beta2Test;
+    }
+
 
     public List<ConfidenceInterval> intervals(){
         List<ConfidenceInterval> intervals = new ArrayList<>();
@@ -171,9 +191,33 @@ public class SimpleLinearRegression implements Regression{
     }
 
 
+    public Data getData(){
+        return new Data(new double[][]{data.toDoubleArray(), y.toDoubleArray()});
+    }
+
+    public double rSquared(){
+        return rSquared;
+    }
+
     public void summary() {
         // todo
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ********* nested utility classes ********* */
 
     /**
      * Abstract Helper parent classe for Beta t-tests
@@ -243,20 +287,26 @@ public class SimpleLinearRegression implements Regression{
     /**
      * Confidence interval for all Beta
      */
-    class BetaInterval implements ConfidenceInterval {
+    class BetaInterval extends AbstractConfidenceInterval {
 
-        private double beta, err, error;
+        private double beta, err;
 
         BetaInterval(double beta, double err) {
             this.beta = beta;
             this.err = err;
         }
-        public double error() { return error; }
-        public double centralValue() { return beta; }
+
 
         public BetaInterval fit(Quantiles level) {
             error = Distributions.student(dataSize - 2).quantile(level) * err;
+            center = beta;
+            low = center - error;
+            high = center + error;
             return this;
+        }
+
+        public BetaInterval fit(){
+            return fit(Quantiles.q975);
         }
     }
 
