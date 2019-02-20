@@ -20,6 +20,6 @@ Le répertoire pour ce projet peut-être retrouvé en suivant le lien suivant : 
 > Dirigé ou non
 > arête avec poid ou non
 * Implémentation d'algorithme
-> Depth first search et Breadth first search
+> Depth first search et Breadth first search\n
 > Dijkstra
 
