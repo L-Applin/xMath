@@ -16,5 +16,5 @@ todo : expression polynomiale de toute forme
 ## Grapĥes [WIP]
 Le répertoire pour ce projet peut-être retrouvé en suivant le lien suivant : [grJ](https://github.com/L-Applin/grJ).
 * plusieurs types de graphes supportés:
-**Mutable et immuable
+>Mutable et immuable
 
