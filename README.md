@@ -16,10 +16,10 @@ todo : expression polynomiale de toute forme
 ## Graphes [WIP]
 Le répertoire pour ce projet peut-être retrouvé en suivant le lien suivant : [grJ](https://github.com/L-Applin/grJ).
 * plusieurs types de graphes supportés:
-..* Mutable et immuable
-..* Dirigé ou non
-..* arête avec poid ou non
+  * Mutable et immuable
+  * Dirigé ou non
+  * arête avec poid ou non
 * Implémentation d'algorithme
-..* Depth first search et Breadth first search\n
-..* Dijkstra
+  * Depth first search et Breadth first search\n
+  * Dijkstra
 
