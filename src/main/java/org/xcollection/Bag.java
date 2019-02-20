@@ -3,7 +3,7 @@ package org.xcollection;
 import java.util.*;
 
 /**
- * For fast removal. Doesnot support order.
+ * MultiSet. Built for fast removal. Doesnot support order.
  * @param <T>
  */
 public class Bag<T> implements Collection<T> {
