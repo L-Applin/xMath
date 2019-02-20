@@ -21,6 +21,21 @@ Le répertoire pour ce projet peut-être retrouvé en suivant le lien suivant : 
   * arête avec poid ou non
   * utilisation des principes de génie logiciel
 * Implémentation d'algorithme
-  * Depth first search et Breadth first search\n
+  * Depth first search et Breadth first search
   * Dijkstra
-
+  
+## Statistiques
+Implémentation de différents outils statistiques.
+* Représentation de données
+  * Moyenne
+  * Médiane
+  * Variance et écart type
+  * todo : Entropie, kurtosis, etc
+* Distribution statistique
+  * Normale
+  * Binomiale
+  * Student
+  * Logistic
+* Intervalle de confiance
+* Test d'hypothèse
+* RÉgression linéaire
